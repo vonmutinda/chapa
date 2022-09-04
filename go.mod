@@ -1,4 +1,4 @@
-module vonmutinda/chapa
+module github.com/vonmutinda/chapa
 
 go 1.19
 

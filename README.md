@@ -19,7 +19,7 @@ Unofficial Golang SDK for Chapa ET API
     package main
 
     import (
-        "github.com/vonmutinda/Chapa-Golang"
+        "github.com/vonmutinda/chapa"
     )
 
     func main(){
@@ -29,7 +29,7 @@ Unofficial Golang SDK for Chapa ET API
 
 ##### 3. Accept Payments
 ```go
-    request := &ChapaPaymentRequest{
+    request := &chapa.ChapaPaymentRequest{
         Amount:         10,
         Currency:       "ETB",
         FirstName:      "Chapa",
@@ -44,7 +44,7 @@ Unofficial Golang SDK for Chapa ET API
         },
     }
 
-    response, err := chapa.PaymentRequest(ctx, request)
+    response, err := chapaAPI.PaymentRequest(ctx, request)
     if err != nil {
         fmt.Println(err)
     }

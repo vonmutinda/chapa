@@ -10,7 +10,7 @@ Unofficial Golang SDK for Chapa ET API
 ### Usage
 ##### 1. Installation
 ```
-    go get github.com/vonmutinda/Chapa-Golang
+    go get github.com/vonmutinda/chapa
 ```
 
 ##### 2. Setup

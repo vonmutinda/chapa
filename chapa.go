@@ -22,14 +22,14 @@ type (
 	}
 
 	AppChapa struct {
-		APIKey string
+		aPIKey string
 		client *http.Client
 	}
 )
 
 func New(apiKey string) *AppChapa {
 	return &AppChapa{
-		APIKey: apiKey,
+		aPIKey: apiKey,
 		client: &http.Client{
 			Timeout: 2 * time.Minute,
 		},
@@ -49,7 +49,7 @@ func (c *AppChapa) PaymentRequest(ctx context.Context, request *ChapaPaymentRequ
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+c.APIKey)
+	req.Header.Set("Authorization", "Bearer "+c.aPIKey)
 	req.Close = true
 
 	resp, err := c.client.Do(req)
@@ -82,7 +82,7 @@ func (c *AppChapa) Verify(ctx context.Context, txnRef string) (*ChapaVerifyRespo
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+c.APIKey)
+	req.Header.Set("Authorization", "Bearer "+c.aPIKey)
 	req.Close = true
 
 	resp, err := c.client.Do(req)

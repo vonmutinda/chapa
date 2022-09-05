@@ -1,9 +1,7 @@
-# Chapa-Golang
-
+## Chapa Golang
 Unofficial Golang SDK for Chapa ET API
 
 ### Todo:
-
 - [ ] We could add nice validations on demand.
 
 
@@ -19,6 +17,7 @@ Unofficial Golang SDK for Chapa ET API
     package main
 
     import (
+        "os"
         "github.com/vonmutinda/chapa"
     )
 
@@ -44,18 +43,24 @@ Unofficial Golang SDK for Chapa ET API
         },
     }
 
-    response, err := chapaAPI.PaymentRequest(ctx, request)
+    response, err := chapaAPI.PaymentRequest(request)
     if err != nil {
         fmt.Println(err)
+        os.Exit(1)
     }
+
+    fmt.Printf("payment response: %+v\n", response)
 ```
 
 ##### 4. Verify Payment Transactions
 ```go
-    response, err := chapa.Verify(ctx, "your-txn-ref")
+    response, err := chapa.Verify("your-txn-ref")
     if err != nil {
          fmt.Println(err)
+         os.Exit(1)
     }
+
+    fmt.Printf("verification response: %+v\n", response)
 ```
 
 ### Resources

@@ -2,7 +2,6 @@ package chapa
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -16,27 +15,27 @@ const (
 )
 
 type (
-	Chapa interface {
-		PaymentRequest(ctx context.Context, request *ChapaPaymentRequest) (*ChapaPaymentResponse, error)
-		Verify(ctx context.Context, txnRef string) error
+	ChapaAPI interface {
+		PaymentRequest(request *ChapaPaymentRequest) (*ChapaPaymentResponse, error)
+		Verify(txnRef string) error
 	}
 
-	AppChapa struct {
-		aPIKey string
+	Chapa struct {
+		apiKey string
 		client *http.Client
 	}
 )
 
-func New(apiKey string) *AppChapa {
-	return &AppChapa{
-		aPIKey: apiKey,
+func New(apiKey string) *Chapa {
+	return &Chapa{
+		apiKey: apiKey,
 		client: &http.Client{
-			Timeout: 2 * time.Minute,
+			Timeout: 1 * time.Minute,
 		},
 	}
 }
 
-func (c *AppChapa) PaymentRequest(ctx context.Context, request *ChapaPaymentRequest) (*ChapaPaymentResponse, error) {
+func (c *Chapa) PaymentRequest(request *ChapaPaymentRequest) (*ChapaPaymentResponse, error) {
 
 	data, err := json.Marshal(request)
 	if err != nil {
@@ -49,7 +48,7 @@ func (c *AppChapa) PaymentRequest(ctx context.Context, request *ChapaPaymentRequ
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+c.aPIKey)
+	req.Header.Set("Authorization", "Bearer "+c.apiKey)
 	req.Close = true
 
 	resp, err := c.client.Do(req)
@@ -74,7 +73,7 @@ func (c *AppChapa) PaymentRequest(ctx context.Context, request *ChapaPaymentRequ
 	return &chapaPaymentResponse, nil
 }
 
-func (c *AppChapa) Verify(ctx context.Context, txnRef string) (*ChapaVerifyResponse, error) {
+func (c *Chapa) Verify(txnRef string) (*ChapaVerifyResponse, error) {
 
 	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf(chapaVerifyPaymentV1APIURL, txnRef), nil)
 	if err != nil {
@@ -82,7 +81,7 @@ func (c *AppChapa) Verify(ctx context.Context, txnRef string) (*ChapaVerifyRespo
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+c.aPIKey)
+	req.Header.Set("Authorization", "Bearer "+c.apiKey)
 	req.Close = true
 
 	resp, err := c.client.Do(req)

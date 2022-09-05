@@ -1,7 +1,6 @@
 package chapa
 
 import (
-	"context"
 	"os"
 	"testing"
 
@@ -12,13 +11,9 @@ import (
 
 func TestChapa(t *testing.T) {
 
-	ctx := context.Background()
-
 	Convey("Chapa API", t, func() {
 
-		chapa := New(
-			os.Getenv("API_KEY"),
-		)
+		chapa := New(os.Getenv("API_KEY"))
 
 		Convey("can prompt payment from users", func() {
 
@@ -37,7 +32,7 @@ func TestChapa(t *testing.T) {
 				},
 			}
 
-			response, err := chapa.PaymentRequest(ctx, request)
+			response, err := chapa.PaymentRequest(request)
 			So(err, ShouldBeNil)
 
 			So(response.Status, ShouldEqual, "success")
@@ -47,7 +42,7 @@ func TestChapa(t *testing.T) {
 
 		Convey("can verify transactions", func() {
 
-			response, err := chapa.Verify(ctx, "take-this-2-the-bank") // a paid txn
+			response, err := chapa.Verify("take-this-2-the-bank") // a paid txn
 			So(err, ShouldBeNil)
 
 			So(response.Status, ShouldEqual, "success")
@@ -72,10 +67,10 @@ func TestChapa(t *testing.T) {
 				},
 			}
 
-			_, err := chapa.PaymentRequest(ctx, request)
+			_, err := chapa.PaymentRequest(request)
 			So(err, ShouldBeNil)
 
-			response, err := chapa.Verify(ctx, request.TransactionRef)
+			response, err := chapa.Verify(request.TransactionRef)
 			So(err, ShouldBeNil)
 
 			So(response.Message, ShouldEqual, "Payment not paid yet")

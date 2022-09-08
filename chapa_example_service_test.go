@@ -2,6 +2,7 @@ package chapa
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -14,7 +15,7 @@ func TestChapaExampleService(t *testing.T) {
 		ctx := context.Background()
 
 		exampleService := NewExamplePaymentService(
-			New("CHAPA_API_KEY"),
+			New(os.Getenv("CHAPA_API_KEY")),
 		)
 
 		Convey("can list payment transactions", func() {

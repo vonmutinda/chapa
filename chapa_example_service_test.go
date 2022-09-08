@@ -19,7 +19,7 @@ func TestChapaExampleService(t *testing.T) {
 
 		Convey("can list payment transactions", func() {
 
-			transactionList, err := exampleService.ListPaymentList(ctx)
+			transactionList, err := exampleService.ListPaymentTransactions(ctx)
 			So(err, ShouldBeNil)
 
 			So(len(transactionList.Transactions), ShouldEqual, 2)

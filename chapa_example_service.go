@@ -88,7 +88,7 @@ var (
 type (
 	ExamplePaymentService interface {
 		Checkout(ctx context.Context, userID int64, form *CheckoutForm) (*ChapaPaymentResponse, error)
-		ListPaymentList(ctx context.Context) (*TransactionList, error)
+		ListPaymentTransactions(ctx context.Context) (*TransactionList, error)
 	}
 
 	AppExamplePaymentService struct {
@@ -153,7 +153,7 @@ func (s *AppExamplePaymentService) Checkout(ctx context.Context, userID int64, f
 	return transcation, nil
 }
 
-func (s *AppExamplePaymentService) ListPaymentList(ctx context.Context) (*TransactionList, error) {
+func (s *AppExamplePaymentService) ListPaymentTransactions(ctx context.Context) (*TransactionList, error) {
 
 	// validations here
 

@@ -4,4 +4,4 @@ fmt:
 	go fmt .
 
 test:
-	API_KEY=${API_KEY} go test
+	CHAPA_API_KEY=${CHAPA_API_KEY} go test

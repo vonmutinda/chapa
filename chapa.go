@@ -17,7 +17,7 @@ const (
 type (
 	ChapaAPI interface {
 		PaymentRequest(request *ChapaPaymentRequest) (*ChapaPaymentResponse, error)
-		Verify(txnRef string) error
+		Verify(txnRef string) (*ChapaVerifyResponse, error)
 	}
 
 	Chapa struct {

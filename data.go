@@ -24,7 +24,7 @@ type (
 		Message string `json:"message"`
 		Status  string `json:"status"`
 		Data    struct {
-			TransactionFee string `json:"charge"` // should be float
+			TransactionFee float64 `json:"charge"`
 		}
 	}
 )

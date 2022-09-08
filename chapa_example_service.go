@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"sync"
 	"time"
 
@@ -103,7 +102,7 @@ func NewExamplePaymentService(
 ) *AppExamplePaymentService {
 	return &AppExamplePaymentService{
 		mu:                     &sync.Mutex{},
-		paymentGatewayProvider: New(os.Getenv("CHAPA_API_KEY")),
+		paymentGatewayProvider: paymentGatewayProvider,
 	}
 }
 
